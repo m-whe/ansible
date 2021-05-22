@@ -37,7 +37,7 @@
           name: docker
           state: present
 
-# sebp/elk:761 is a docker container that provides an ELK stack
+# sebp/elk:761 is a docker container that provides an ELK image
       - name: Download and launch a docker container called sebp/elk761
         docker_container:
           name: elk
