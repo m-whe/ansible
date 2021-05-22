@@ -1,0 +1,56 @@
+# installELK.yml
+# Michael He
+#
+# Ansible playbook to install and configure an ELK (Elasticsearch, Logstash, Kibana) webserver
+# The ELK stack is used as a centralized log management server and web interface
+# Tested on the Microsoft Azure cloud computing platform
+#
+# Compatiblity: Linux
+# Requirements: Docker, Ansible, Python
+
+---
+  - name: Configure ELK Server
+    hosts: elk
+    become: true
+    tasks:
+
+# Increases the mmap limit to prevent memory exceptions while using Elasticsearch
+      - name: Set vm.max_map_count to 262144 in sysctl
+        sysctl: name={{ item.key }} value={{ item.value }}
+        with_items:
+          - { key: "vm.max_map_count", value: "262144" }
+
+      - name: Install docker.io
+        apt:
+          update_cache: yes
+          name: docker.io
+          state: present
+
+      - name: Install Python pip3
+        apt:
+          force_apt_get: yes
+          name: python3-pip
+          state: present
+
+      - name: Install Python Docker module
+        pip:
+          name: docker
+          state: present
+
+# sebp/elk:761 is a docker container that provides an ELK stack web interface
+      - name: Download and launch a docker container called sebp/elk761
+        docker_container:
+          name: elk
+          image: sebp/elk:761
+          state: started
+          restart_policy: always
+# Use ports 5601, 9200, 5044 
+          published_ports:
+            - 5601:5601
+            - 9200:9200
+            - 5044:5044
+
+      - name: Enable docker service
+        systemd:
+          name: docker
+          enabled: yes
