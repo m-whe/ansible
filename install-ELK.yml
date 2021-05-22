@@ -2,7 +2,7 @@
 # Michael He
 #
 # Ansible playbook to install and configure an ELK (Elasticsearch, Logstash, Kibana) webserver
-# The ELK stack is used as a centralized log management server and web interface
+# The ELK stack is a centralized log management server and web interface
 # Tested on the Microsoft Azure cloud computing platform
 #
 # Compatiblity: Linux
