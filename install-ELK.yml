@@ -1,4 +1,4 @@
-# installELK.yml
+# install-ELK.yml
 # Michael He
 #
 # Ansible playbook to install and configure an ELK (Elasticsearch, Logstash, Kibana) webserver
