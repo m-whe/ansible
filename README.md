@@ -2,7 +2,7 @@
 Ansible playbooks
 by Michael He
 
-I've included one ansible playbook in this repository.
+I have included one ansible playbook in this repository.
 
 >1. install-ELK.yml
 
